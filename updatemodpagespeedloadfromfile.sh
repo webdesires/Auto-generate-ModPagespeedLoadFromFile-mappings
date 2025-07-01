@@ -26,7 +26,13 @@ show_welcome_message() {
     fi
 }
 
-show_welcome_message
+# Only show welcome message if not running from cron
+if [ -z "$PS1" ] && [ -z "$SSH_TTY" ] && [ -z "$TERM" ]; then
+  # Likely running from cron, skip welcome
+  :
+else
+  show_welcome_message
+fi
 
 # Where to write final include
 # Detect Apache conf.d directory
